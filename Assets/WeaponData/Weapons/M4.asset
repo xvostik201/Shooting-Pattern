@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf455bff20e2a334f812eac41142266e, type: 3}
+  m_Name: M4
+  m_EditorClassIdentifier: 
+  WeaponName: M4
+  _recoilType: 1
+  _shootRate: 0.09
+  _returnSpeed: 10
+  _gunRecoilForce: {x: -0.1, y: 0.22}
+  _timeToResetSpread: 0.3
+  _spreadPattern: []
+  _spreadCurveX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 17
+      value: -0.055
+      inSlope: -0.00031108403
+      outSlope: -0.00031108403
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.47287253
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 30
+      value: 0.15
+      inSlope: 0.015769232
+      outSlope: 0.015769232
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 0
+    m_RotationOrder: 4
+  _spreadCurveY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.0056666667
+      outSlope: 0.0056666667
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 30
+      value: 0.17
+      inSlope: 0.0056666667
+      outSlope: 0.0056666667
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _minXRandomSpread: -0.02
+  _maxXRandomSpread: 0.02
+  _minYRandomSpread: -0.02
+  _maxYRandomSpread: 0.02
+  _recoilMultiplier: 2
+  _debugEnable: 1
+  _cubeLifetime: 7
