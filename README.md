@@ -43,6 +43,53 @@ This framework demonstrates:
 * **Scriptable Armory:** The `WeaponRegistry` allows for instant weapon swapping and global asset management.
 * **Custom Editor:** Tailor-made Inspector that dynamically hides/shows fields based on the selected recoil type.
 
+### 🧠 Implementation Spotlight: Advanced Ballistics Logic
+
+The following snippet from `M4.cs` demonstrates the core shooting pipeline: resolving camera-to-world coordinates, injecting procedural recoil data, and processing damage via interfaces.
+
+```csharp
+// 1. Resolve target point from Camera center (Parallax Compensation)
+Ray targetRay = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+Vector3 targetPoint = Physics.Raycast(targetRay, out RaycastHit hit, 100f, 
+    Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)
+    ? hit.point
+    : targetRay.GetPoint(100f);
+
+// 2. Fetch Recoil Data (Supports both fixed Patterns and Dynamic Curves)
+float spreadX, spreadY;
+if (_weaponData.RecoilType == WeaponRecoilType.Array && _weaponData.SpreadPattern.Length > 0)
+{
+    int index = Mathf.Min(_currentBullet, _weaponData.SpreadPattern.Length - 1);
+    spreadX = _weaponData.SpreadPattern[index].x;
+    spreadY = _weaponData.SpreadPattern[index].y;
+}
+else
+{
+    spreadX = _weaponData.SpreadCurveX.Evaluate(_currentBullet);
+    spreadY = _weaponData.SpreadCurveY.Evaluate(_currentBullet);
+}
+
+// 3. Calculate final trajectory with Muzzle-to-Target routing
+Vector3 spreadOffset = new Vector3(
+    spreadX + Random.Range(_weaponData.MinXRandomSpread, _weaponData.MaxXRandomSpread),
+    spreadY + Random.Range(_weaponData.MinYRandomSpread, _weaponData.MaxYRandomSpread), 
+    0);
+
+Vector3 direction = (targetPoint - _shootPoint.position).normalized;
+Vector3 finalDir = (_currentBullet > 0) ? (direction + spreadOffset).normalized : direction;
+
+// 4. Execute physical hit detection and Damage processing
+if (Physics.Raycast(_shootPoint.position, finalDir, out RaycastHit finalHit, 100f))
+{
+    // Decoupled interaction via Interface
+    IDamagable damagable = finalHit.transform.GetComponentInParent<IDamagable>() 
+                           ?? finalHit.transform.GetComponentInChildren<IDamagable>();
+
+    damagable?.TakeDamage(_weaponData.WeaponDamage);
+    DebugCube(finalHit.point);
+}
+```
+
 🎮 **Controls**
 
 | Action | Input |
