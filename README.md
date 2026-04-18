@@ -43,6 +43,15 @@ This framework demonstrates:
 * **Scriptable Armory:** The `WeaponRegistry` allows for instant weapon swapping and global asset management.
 * **Custom Editor:** Tailor-made Inspector that dynamically hides/shows fields based on the selected recoil type.
 
+
+
+### ⚡ Optimization: Interface Caching
+To keep the performance at **60+ FPS** during high-frequency firing, I implemented a **Memoization Pattern** for hit detection:
+* **Dictionary Lookup:** Instead of calling `GetComponent` on every frame, the system stores `IDamagable` references in a `Dictionary<Transform, IDamagable>`.
+* **Zero Overhead:** This reduces the CPU spikes during rapid fire, ensuring that the physics calculations remain the only heavy lifting.
+
+
+
 ### 🧠 Implementation Spotlight: Advanced Ballistics Logic
 
 The following snippet from `M4.cs` demonstrates the core shooting pipeline: resolving camera-to-world coordinates, injecting procedural recoil data, and processing damage via interfaces.
@@ -89,6 +98,7 @@ if (Physics.Raycast(_shootPoint.position, finalDir, out RaycastHit finalHit, 100
     DebugCube(finalHit.point);
 }
 ```
+  
 
 🎮 **Controls**
 
