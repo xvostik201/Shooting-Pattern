@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
@@ -14,6 +15,8 @@ public abstract class BaseWeapon : MonoBehaviour
     protected float _shootTimer;
     protected int _currentBullet;
     protected bool _isShooting;
+    
+    protected Dictionary<Transform, IDamagable> _damagableCache;
     
     protected WeaponData _weaponData;
     

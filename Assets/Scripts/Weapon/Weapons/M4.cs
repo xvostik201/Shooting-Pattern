@@ -38,13 +38,14 @@ public class M4 : BaseWeapon
             if (Physics.Raycast(_shootPoint.position, finalDir, out RaycastHit finalHit, 100f, Physics.DefaultRaycastLayers,
                     QueryTriggerInteraction.Ignore))
             {
-                IDamagable damagable = finalHit.transform.GetComponentInParent<IDamagable>() 
-                                       ?? finalHit.transform.GetComponentInChildren<IDamagable>();
-
-                if (damagable != null)
+                if(!_damagableCache.TryGetValue(finalHit.transform, out IDamagable damagable))
                 {
-                    damagable.TakeDamage(_weaponData.WeaponDamage);
+                    damagable = finalHit.transform.GetComponentInParent<IDamagable>() 
+                                ?? finalHit.transform.GetComponentInChildren<IDamagable>();
+                    
+                    _damagableCache[finalHit.transform] = damagable;
                 }
+                damagable?.TakeDamage(_weaponData.WeaponDamage);
 
                 DebugCube(finalHit.point);
             }
