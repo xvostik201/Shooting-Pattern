@@ -112,8 +112,7 @@ if (Physics.Raycast(_shootPoint.position, finalDir, out RaycastHit finalHit, 100
 
 1. Unity **2022.3 LTS** or newer.
 2. Clone repository.
-3. Import **Zenject** and **DOTween**.
-4. Open the project and launch the main scene.
+3. Open the project and launch the main scene.
 
 📜 **License**
 
